@@ -6,18 +6,16 @@ const { parse } = require('csv-parse');
 const csvPath=('./chanel-config.csv');
 let botName;
 const prefix = '!';
-
+let config ;
 
 client.on('ready', async ()  => {
   console.log(`Logged in as ${client.user.tag}!`);
   botName=client.user.tag;
-  console.log(await readCsvFile())
-  
-
-	
+  config=await readCsvFile()
+  console.log(config)
 });
 
-client.on('message', message => {
+client.on('message', async message => {
 	if(!message.content.startsWith(prefix)||message.author.bot){
 	console.log(`${message.author.tag} said: ${message.content}`);
 	if(message.author.tag!=botName){
@@ -27,8 +25,13 @@ client.on('message', message => {
 	}
 	
 	const args = message.content.slice(prefix.length).split(/ -/);
-	if (args[0]=="linkChanells"&&args.length==3){
+	if (args[0]=="linkChanells"&&args.length==3||args[0]=="lc"&&args.length==3){
 		create_Chanell_Config(args[1],args[2])
+		config =await readCsvFile()
+	}
+	if (args[0]=="llc"||args[0]=="listLinkedChanells") {
+		const id =message.channel.id
+		listLinkedChanels(id, config)
 	}
 
 
@@ -39,7 +42,6 @@ client.on('channelCreate', channel => {
   console.log(`${channel.name} has been created in ${channel.guild.name}`);
 });
 function create_Chanell_Config(sourceID,DestinationID){
-	//let data="firstID,secondID,";
 	fs.readFile(csvPath, 'utf8', function(err, data){
 		console.log("Read: "+data);
 		data=data+"\n"+sourceID+","+DestinationID;
@@ -47,6 +49,7 @@ function create_Chanell_Config(sourceID,DestinationID){
 			if(err) {
 				return console.log(err);
 			}
+			
 			console.log("File sucesfully edited");
 		}); 
 	});
@@ -62,6 +65,18 @@ async function get_Linked_ChanellID(ID,message,author){
 				console.log("Sended message :"+message+" as user "+author+"   ["+results[index].secondID+"]")
 				client.channels.cache.get(results[index].secondID).send(author+": "+message)		
 			}
+		}
+}
+async function listLinkedChanels(chanellID,results){
+
+	let msg = "Here are the current linked chanells:";	
+	client.channels.cache.get(chanellID).send(msg)
+
+		for (let index = 0; index < results.length; index++) {
+			msg = "Source: #**"+client.channels.cache.get(results[index].firstID).name+"**  id:["+results[index].firstID+"]"+ 'to ==> Destination: #**'  +client.channels.cache.get(results[index].secondID).name+"**  id:[" + results[index].secondID+"]"
+			client.channels.cache.get(chanellID).send(msg)
+
+			console.log(msg)
 		}
 }
 
