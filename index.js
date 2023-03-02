@@ -1,7 +1,9 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const BOT_TOKEN = ""			//<=======Token here 
 const fs = require('fs');
+const rawToken = fs.readFileSync('app-config.json');
+const appConfig = JSON.parse(rawToken); 
+const BOT_TOKEN=appConfig.token
 const { parse } = require('csv-parse');
 const csvPath=('./chanel-config.csv');
 let botName;
@@ -33,6 +35,11 @@ client.on('message', async message => {
 		const id =message.channel.id
 		listLinkedChanels(id, config)
 	}
+	else if (args[0]=="linkChanells"&&args.length!=3||args[0]=="lc"&&args.length!=3) {
+		client.channels.cache.get(message.channel.id).send("You tryed to use the lc(linkChanels)command but you forgot to add the arguments  \n for example **"+prefix+"lc -[firstId] -[secondID]**")
+
+	}
+
 
 
   });
