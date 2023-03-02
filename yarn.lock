@@ -230,6 +230,11 @@ cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+csv-parse@^5.3.5:
+  version "5.3.5"
+  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-5.3.5.tgz#9924bbba9f7056122f06b7af18edc1a7f022ce99"
+  integrity sha512-8O5KTIRtwmtD3+EVfW6BCgbwZqJbhTYsQZry12F1TP5RUp0sD9tp1UnCWic3n0mLOhzeocYaCZNYxOGSg3dmmQ==
+
 csv-parser@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/csv-parser/-/csv-parser-3.0.0.tgz#b88a6256d79e090a97a1b56451f9327b01d710e7"
