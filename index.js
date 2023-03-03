@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client= new Discord.Client();
 const fs = require('fs');
 const rawToken = fs.readFileSync('app-config.json');
 const appConfig = JSON.parse(rawToken); 
@@ -17,6 +17,7 @@ client.on('ready', async ()  => {
   console.log(config)
 });
 
+
 client.on('message', async message => {
 	if(!message.content.startsWith(prefix)||message.author.bot){
 	console.log(`${message.author.tag} said: ${message.content}`);
@@ -29,7 +30,6 @@ client.on('message', async message => {
 	const args = message.content.slice(prefix.length).split(/ -/);
 	if (args[0]=="linkChanells"&&args.length==3||args[0]=="lc"&&args.length==3){
 		create_Chanell_Config(args[1],args[2])
-		config =await readCsvFile()
 	}
 	if (args[0]=="llc"||args[0]=="listLinkedChanells") {
 		const id =message.channel.id
@@ -37,7 +37,12 @@ client.on('message', async message => {
 	}
 	else if (args[0]=="linkChanells"&&args.length!=3||args[0]=="lc"&&args.length!=3) {
 		client.channels.cache.get(message.channel.id).send("You tryed to use the lc(linkChanels)command but you forgot to add the arguments  \n for example **"+prefix+"lc -[firstId] -[secondID]**")
-
+	}
+	else if(args[0]=="id"){
+		client.channels.cache.get(message.channel.id).send("This chanells id is :"+message.channel.id)
+	}
+	else if(args[0]=="h"||args[0]=="help"){
+		client.channels.cache.get(message.channel.id).send('Commands: \n **!lc** **-**<**firstChanellID**> **-**<**secondChanellID**>   [links chanells ] \n **!llc**  [lists linked chanels] \n **!id**   [show the current id] \n **!h**   [shows this message]')
 	}
 
 
@@ -75,7 +80,7 @@ async function get_Linked_ChanellID(ID,message,author){
 		}
 }
 async function listLinkedChanels(chanellID,results){
-
+	results =await readCsvFile()
 	let msg = "Here are the current linked chanells:";	
 	client.channels.cache.get(chanellID).send(msg)
 
