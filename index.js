@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 require('dotenv').config();
 const token = process.env.DISCORD_TOKEN;
+console.log(token)
 const client= new Discord.Client();
 const fs = require('fs');
 const { parse } = require('csv-parse');
