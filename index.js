@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
+require('dotenv').config();
+const token = process.env.DISCORD_TOKEN;
 const client= new Discord.Client();
 const fs = require('fs');
-const rawToken = fs.readFileSync('app-config.json');
-const appConfig = JSON.parse(rawToken); 
 const BOT_TOKEN=appConfig.token
 const { parse } = require('csv-parse');
 const csvPath=('./chanel-config.csv');
@@ -121,4 +121,4 @@ async function readCsvFile() {
   }
   
   
-client.login(BOT_TOKEN);
+client.login(token);
