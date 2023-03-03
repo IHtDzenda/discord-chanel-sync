@@ -3,7 +3,6 @@ require('dotenv').config();
 const token = process.env.DISCORD_TOKEN;
 const client= new Discord.Client();
 const fs = require('fs');
-const BOT_TOKEN=appConfig.token
 const { parse } = require('csv-parse');
 const csvPath=('./chanel-config.csv');
 let botName;

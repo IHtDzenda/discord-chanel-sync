@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:16yyy.9
 WORKDIR /app
 
 RUN npm install -g yarn
