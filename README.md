@@ -1,14 +1,12 @@
 # Discord-chanel-sync
 A simple discord bot that synced message a cross multiple discord servers
-### Features:
+## Features:
 * ✔️ Syncing across chanels 
 * ✔️ Command for setting up the bot 
-* ❌ Docker conteiner 
+* ❌ Docker conteiner - (work in progres...)
 
-### Setup:
-put the chanells id in : chanel-config.csv
-firstid - The first chanel
-
-secondID - Destination chanel
-### Command:
-* !linkChanells -firstChanellID -secondChanellID
+### Commands:
+ * !lc -<firstChanellID> -<secondChanellID>   [links chanells ] 
+ * !llc                                       [lists linked chanels] 
+ * !id                                        [show the current id] 
+ * !h                                         [shows this message]
