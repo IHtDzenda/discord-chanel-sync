@@ -1,7 +1,8 @@
-FROM node:16yyy.9
+FROM node:16.9
 WORKDIR /app
 
-RUN npm install -g yarn
+RUN npm install -g yarn --force
+
 RUN git clone https://github.com/IHtDzenda/discord-chanel-sync.git /app && \
         cd /app && \
         rm -rf .git && \
@@ -9,7 +10,8 @@ RUN git clone https://github.com/IHtDzenda/discord-chanel-sync.git /app && \
         rm -f .gitignore && \
         rm -f Dockerfile && \
         rm -f README.md
-COPY package*.json yarn*.lock ./
+#COPY package*.json yarn*.lock ./
 RUN yarn install --production
-ENV DISCORD_TOKEN=<your token>
+ARG DISCORD_TOKEN
+ENV DISCORD_TOKEN=""
 CMD ["node", "index.js"]
